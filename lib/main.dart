@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:testflutter/views/add_cities.dart';
 import 'package:testflutter/views/splash/splash_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:testflutter/views/test1.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,12 +23,11 @@ class MyApp extends StatelessWidget {
           GetMaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Quick_books',
-
             theme: ThemeData(
               fontFamily: 'Nunito',
               primarySwatch: Colors.blue,
             ),
-            home:  splashscreen(),
+            home:  test1screen(),
           ),
     );
   }

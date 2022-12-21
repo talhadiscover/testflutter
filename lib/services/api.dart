@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 
 import '../model/addcitiesmodel.dart';
 import '../model/reponse/fetchproduct.dart';
+import '../model/reponse/resplogin.dart';
 
 class API {
   var client = http.Client();
@@ -23,19 +24,22 @@ class API {
        return response.body;
     }
   }
-  Future login( name,username) async {
+  Future<List<RespLoginmodel>> login(name,username) async {
+     print(username);
+     print(name);
     var endPoint = Uri.parse("https://jsonplaceholder.typicode.com/users?name=$name&username=$username");
-    var response = await client.get(endPoint, headers: headers );
+    print(endPoint);
+     var response = await client.get(endPoint, headers: headers );
     print(response.body);
     if (response.statusCode == 200) {
       print(response.body);
-      return response.body;
+      return respLoginmodelFromJson(response.body);
     } else {
       print(response.body);
-      return response.body;
+      return respLoginmodelFromJson(response.body);
     }
   }
-  Future showcities( device_id,token,lang_id,country_id) async {
+  Future showcities(device_id,token,lang_id,country_id) async {
     var endPoint = Uri.parse("https://fluttertest.q3logics.com/api/getCities?device_id=$device_id&token=$token&lang_id=$lang_id&country_id=$country_id");
      var response = await client.get(endPoint, headers: headers );
     if (response.statusCode == 200) {

@@ -18,15 +18,15 @@ class dashboard extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          actions: [
+          actions: const [
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: EdgeInsets.all(8.0),
               child: Icon(Icons.search),
             ),
           ],
            backgroundColor: Colors.red,
           title: Text('Lorem Ipsum'),
-          bottom: TabBar(
+          bottom: const TabBar(
             indicatorColor: Colors.white,
             tabs: [
               Tab(  text: "All Post"),

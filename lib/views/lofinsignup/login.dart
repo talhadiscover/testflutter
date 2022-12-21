@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:testflutter/constant/constant.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../controllers/login_controller.dart';
+import '../../model/widget.dart';
 import '../../theme/theme.dart';
 import 'package:get/get.dart';
 import '../dashbaord/dashboard.dart';
@@ -58,18 +59,7 @@ class _loginscreenState extends State<loginscreen> {
                     borderSide: BorderSide(color: Colors.grey.shade100,width: .7),
                   ),
                 ),
-                autovalidateMode:AutovalidateMode.onUserInteraction,
-                validator: (value) {
-                  if (value!.trim().isEmpty) {
-                    return 'Please enter email'.tr;
-                  }
-                  // Check if the entered email has the right format
-                  if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
-                    return 'Invalid email';
-                  }
-                  // Return null if the entered email is valid
-                  return null;
-                },
+
               ),
             ),
             Padding(
@@ -127,14 +117,14 @@ class _loginscreenState extends State<loginscreen> {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(25))),
                   onPressed: () async {
-                    login.hitlogin(name.text, password.text);
-                      print(
-                          'message ${login.productList[0].username}');
-                      Get.snackbar(
-                          '${login.productList[0].username}',
-                          'Sucess');
-                      Get.offAll(dashboard(id: login.productList[0].id,address:login.productList[0].address!.city ,name: login.productList[0].name,username: login.productList[0].username,zipcode:login.productList[0].address!.zipcode , ) );
+                    login.hitlogin(name.text.trim(),password.text.trim());
+                      Get.offAll(dashboard(id: login.productList.value[0].id,address:login.productList.value[0].address!.city ,name: login.productList.value[0].name,username: login.productList.value[0].username,zipcode:login.productList.value[0].address!.zipcode ,),
+                          arguments: details(
+                            email: 'email',
+                            password: 'passwird', devicetoken: 'qweerer'
+                           ) );
 
+                    print('error');
                   },
                   child: !login.isLoading.value
                       ? Text('Login')

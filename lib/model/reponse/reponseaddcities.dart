@@ -1,4 +1,4 @@
-// To parse this JSON data, do
+﻿// To parse this JSON data, do
 //
 //     final responseCities = responseCitiesFromJson(jsonString);
 
@@ -19,8 +19,7 @@ class ResponseCities {
   String? data;
   bool? maintenanceStatus;
   String? msg;
-
-  factory ResponseCities.fromJson(Map<String, dynamic> json) => ResponseCities(
+   factory ResponseCities.fromJson(Map<String, dynamic> json) => ResponseCities(
     status: json["status"],
     data: json["data"],
     maintenanceStatus: json["maintenance_status"],

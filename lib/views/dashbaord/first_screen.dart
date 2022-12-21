@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
 import '../../controllers/fetchdata_controller.dart';
+import '../../controllers/login_controller.dart';
 
 class firstscreen extends StatefulWidget {
   final id;
@@ -15,9 +16,11 @@ class firstscreen extends StatefulWidget {
 
 class _firstscreenState extends State<firstscreen> {
   final ProductController productController = Get.put(ProductController());
+  logincontroller controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
+    print(controller.detailss.email);
     return Scaffold(
       body: Obx(() => !productController.isLoading.value
           ? ListView.builder(
@@ -31,18 +34,13 @@ class _firstscreenState extends State<firstscreen> {
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
                             '${productController.productList[i].title}',
-                            style: TextStyle(
-                                color: widget.id ==
-                                        productController.productList[i].userId
-                                    ? Colors.red
-                                    : Colors.black),
+                            style: TextStyle( color: widget.id ==productController.productList[i].userId  ?Colors.red: Colors.black),
                           ),
                         ),
                         subtitle: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child:
                               Text('${productController.productList[i].body}',style: TextStyle(
-
                                 fontWeight:  widget.id ==
                                     productController.productList[i].userId
                                     ?FontWeight.bold:FontWeight.normal,
@@ -56,7 +54,7 @@ class _firstscreenState extends State<firstscreen> {
                   ],
                 );
               })
-          : CircularProgressIndicator()),
+          : Center(child: CircularProgressIndicator())),
     );
   }
 }
