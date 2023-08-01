@@ -9,7 +9,6 @@ class API {
   var client = http.Client();
   static var baseurl = Uri.parse("https://fluttertest.q3logics.com/api");
   static var addcitiess = "/trial";
-
     Map<String, String> headers = {
     "Content-Type": "application/json",
   };
