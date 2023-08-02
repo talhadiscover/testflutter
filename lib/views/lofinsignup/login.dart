@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:testflutter/constant/constant.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:testflutter/views/lofinsignup/signup.dart';
 import '../../controllers/login_controller.dart';
 import '../../model/widget.dart';
 import '../../theme/theme.dart';
 import 'package:get/get.dart';
 import '../dashbaord/dashboard.dart';
+import '../dashbaord/secondscreen.dart';
 
 
 
@@ -19,7 +21,7 @@ class loginscreen extends StatefulWidget {
 class _loginscreenState extends State<loginscreen> {
   bool isObscure = true;
   bool regisObscure = true;
-  logincontroller login = Get.put(logincontroller());
+  LoginController login = Get.put(LoginController());
   TextEditingController name = TextEditingController();
   TextEditingController password = TextEditingController();
   @override
@@ -27,12 +29,12 @@ class _loginscreenState extends State<loginscreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
-        padding:   EdgeInsets.only(left: 20.w,right: 20.w),
+        padding:   EdgeInsets.only(left: 20.w,right: 20.w,top: 20.h),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Center(child: Image.asset(logo,height: 150,)),
+            Center(child: Image.asset(icon,height: 150,)),
             SizedBox(
               height: 20,
             ),
@@ -117,20 +119,40 @@ class _loginscreenState extends State<loginscreen> {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(25))),
                   onPressed: () async {
-                    login.hitlogin(name.text.trim(),password.text.trim());
-                      Get.offAll(dashboard(id: login.productList.value[0].id,address:login.productList.value[0].address!.city ,name: login.productList.value[0].name,username: login.productList.value[0].username,zipcode:login.productList.value[0].address!.zipcode ,),
-                          arguments: details(
-                            email: 'email',
-                            password: 'passwird', devicetoken: 'qweerer'
-                           ) );
+                   await login.hitLogin(name.text.trim(),password.text.trim());
+                    if (login.loginData.value.message!=null) {
+                      print(login.loginData.value.message);
+                      Get.offAll(secondscreen(),
+                       );
 
+                    } else {
+                      Get.snackbar('Failed',
+                          'Email or Password Wrong',
+                          colorText: Colors.white,
+                          backgroundColor: Colors.red);
+                      name.clear();
+                      password.clear();
+                    }
                     print('error');
                   },
                   child: !login.isLoading.value
                       ? Text('Login')
                       : const Center(child: CircularProgressIndicator())),
             )),
-
+            SizedBox(height: 10,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                const Text('Does not have account?'),
+                TextButton(
+                  child: const Text('Sign up',),
+                  onPressed: () {
+                    Get.to(signup());
+                    //signup screen
+                  },
+                )
+              ],
+            ),
           ],
         ),
       ),

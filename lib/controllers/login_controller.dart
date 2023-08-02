@@ -1,37 +1,38 @@
+import 'dart:convert';
  import 'package:get/get.dart';
-import '../model/loginmodel.dart';
-import '../model/reponse/resplogin.dart';
-import '../model/widget.dart';
- import '../services/api.dart';
 
-class logincontroller extends GetxController{
-   var isLoading = false.obs;
-  final starttripmsg = RespLoginmodel(  ).obs;
-  RxList popularProductList=[].obs;
-  var productList = <RespLoginmodel>[].obs;
-  late details detailss;
- @override
- void onReady(){
-  detailss = Get.arguments as details;
-  print('hhhhhhhhhhhhhhhhh${detailss.password}');
-  super.onReady();
-}
-  hitlogin(name,username ) async {
+import '../model/login_model.dart';
+import '../model/login_resp_model.dart';
+import '../services/api.dart';
+
+
+class LoginController extends GetxController{
+  var isLoading = false.obs;
+  final loginData = LoginModel( message: null,user: null ).obs;
+  hitLogin(email,password) async {
     try {
       isLoading(true);
-      Loginmodel model = Loginmodel(
-         name: name,
-        username: username,
+      LoginModels model = LoginModels(
+        email: email,
+        password: password,
       );
-      var res = await API().login(model.name,model.username);
-       productList.value = res;
-      productList.refresh();
-      }catch(e){
-      print('error${e.toString()}');
+      var res = await API().apiLogin(loginModelsToJson(model),);
+      var decoded = jsonDecode(res);
+      print(decoded['message'] );
+      print('mesg${decoded['message'] }');
+      if (decoded['message'] == "login sucess") {
+        LoginModel loginRespModel = loginModelFromJson(res);
+        print(loginRespModel);
+        loginData.value = loginRespModel;
+        loginData.refresh();
+        print('withmodel${loginData}');
+      }
+    }catch(e){
+      print('withoutmodel${loginData}');
+      print(e.toString());
     }
     finally{
       isLoading(false);
     }
   }
-
 }

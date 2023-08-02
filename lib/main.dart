@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:testflutter/views/add_cities.dart';
+import 'package:testflutter/views/dashbaord/secondscreen.dart';
+import 'package:testflutter/views/lofinsignup/login.dart';
 import 'package:testflutter/views/splash/splash_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:testflutter/views/test1.dart';
@@ -27,7 +29,8 @@ class MyApp extends StatelessWidget {
               fontFamily: 'Nunito',
               primarySwatch: Colors.blue,
             ),
-            home:  test1screen(),
+            // home:  secondscreen(),
+            home:  loginscreen(),
           ),
     );
   }

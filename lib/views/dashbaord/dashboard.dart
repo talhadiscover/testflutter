@@ -36,8 +36,7 @@ class dashboard extends StatelessWidget {
         ),
         body: TabBarView(
           children: [
-            firstscreen(id: id),
-            secondscreen(
+             secondscreen(
               username: username,
               name: name,
               address: address,
